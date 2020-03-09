@@ -1,6 +1,7 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 #include "SlNode.h"
+#include <iostream>
 
 template <typename T>
 
@@ -30,13 +31,10 @@ private:
 	}
 	void pop(){
         if (first){
-            if (first==last){
-                SlNode<T>* toDelete = last;
-                last = last -> next;
-                delete toDelete;
-            }
             SlNode<T>* toDelete = first;
-            first = first -> next;
+            first = first->next;
+            if (!first)
+                last = nullptr;
             delete toDelete;
             count--;
         }
@@ -45,11 +43,11 @@ private:
         return count;
     }
     inline T front(){
-        return first->data;
+        return first ? first->data : T();
 
     }
     inline T back(){
-        return last->data;
+        return last ? last->data : T();
     }
 };
 #endif
