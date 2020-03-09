@@ -7,6 +7,8 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
+    ArrayQueue.h \
+    ArrayStack.h \
     Queue.h \
     SlNode.h \
     Stack.h
