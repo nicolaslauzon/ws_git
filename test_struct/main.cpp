@@ -4,18 +4,11 @@
 
 int main()
 {
-    Queue<int> stack;
-    stack.push(12);
-    stack.push(12);
-    stack.push(1);
-    std::cout << stack.front() << std::endl;
-    std::cout << stack.back() << std::endl;
-    std::cout << stack.size() << std::endl;
-    stack.pop();
-    stack.pop();
-    std::cout << stack.front() << std::endl;
-    std::cout << stack.back() << std::endl;
-    std::cout << stack.size() << std::endl;
-
+   Queue<int> *queue;
+   queue->push(42);
+   queue->push(42);
+   SlIterator *iterator(queue->begin());
+   delete iterator;
+   delete queue;
     return 0;
 }

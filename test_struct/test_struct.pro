@@ -10,5 +10,6 @@ HEADERS += \
     ArrayQueue.h \
     ArrayStack.h \
     Queue.h \
+    SlIterator.h \
     SlNode.h \
     Stack.h

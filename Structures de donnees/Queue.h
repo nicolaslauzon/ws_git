@@ -1,53 +1,67 @@
 #ifndef QUEUE_H
 #define QUEUE_H
-#include "SlNode.h"
 #include <iostream>
+#include "SlNode.h"
+#include "sliterator.h"
 
-template <typename T>
+template<typename T>
 
-
-
-class Queue {
+class Queue{
 private:
-    SlNode<T>*  first,* last;
-	size_t count;
-	
-    public:
+    SlNode<T> *last;
+    size_t count;
+public:
     Queue(){
-	    first = last = nullptr;
-	    count = 0;
-	}
+        last = nullptr;
+        count = 0;
+    }
     ~Queue(){
-	    while(first)
-		pop();
-	}
-    void push(const T& data) {
-        if (first){
-            last = last->next = new SlNode<T>(data);
+        while(last){
+            pop();
         }
-        else
-            first = last = new SlNode<T>(data);
-            count++;
-	}
-	void pop(){
-        if (first){
-            SlNode<T>* toDelete = first;
-            first = first->next;
-            if (!first)
+    }
+    void push(T data){
+        if(last){
+            last->next = new SlNode<T>(data,last->next);
+            last=last->next;
+        }else {
+            last = new SlNode<T>(data);
+            last->next = last;
+        }
+        count++;
+    }
+
+    void pop(){
+        if (last){
+            if(last->next == last){
+                delete last;
                 last = nullptr;
-            delete toDelete;
+            }
+            else {
+                SlNode<T> *todelete = last -> next;
+                last -> next = todelete -> next;
+                delete todelete;
+            }
             count--;
         }
     }
+
+
+    inline T front(){
+        return (last) ? last->next->data : T();
+    }
+
+    inline T back(){
+        return (last) ? last->data : T();
+    }
+
     inline size_t size(){
         return count;
     }
-    inline T front(){
-        return first ? first->data : T();
-
-    }
-    inline T back(){
-        return last ? last->data : T();
+    SlIterator<T>* begin(){
+        if (last)
+            return new SlIterator<T>(last->next);
+        return nullptr;
     }
 };
 #endif
