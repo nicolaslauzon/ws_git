@@ -6,19 +6,16 @@ template <typename T>
 
 class SlIterator {
 private:
-    SlNode<T>* node;
+    SlNode<T>* node_;
 public:
     SlIterator(SlNode<T>* node){
-        this->node = node;
+        node_ = node;
     }
-    ~SlIterator(){
-        delete node;
-    }
-    void Iterate() {
-         node ? node = node->next : node = nullptr;
+    void Next() {
+         node_ ? node_ = node_->next : node_ = nullptr;
     }
     T getData(){
-        return node ? node->data : T();
+        return node_ ? node_->data : T();
     }
 };
 #endif

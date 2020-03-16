@@ -24,7 +24,8 @@ public:
         if(last){
             last->next = new SlNode<T>(data,last->next);
             last=last->next;
-        }else {
+        }
+        else {
             last = new SlNode<T>(data);
             last->next = last;
         }

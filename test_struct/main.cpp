@@ -7,8 +7,10 @@ int main()
    Queue<int> *queue;
    queue->push(42);
    queue->push(42);
-   SlIterator *iterator(queue->begin());
+   SlIterator<int> *iterator(queue->begin());
+   iterator->Next();
+   std::cout << iterator->getData() << std::endl;
    delete iterator;
    delete queue;
-    return 0;
+   return 0;
 }
