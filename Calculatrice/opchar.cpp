@@ -9,28 +9,28 @@ OpChar::OpChar(std::string value) {
 }
 
 int OpChar::getpriority() {
-    switch (type) {
-    case 1:
+    switch (value[0]) {
+    case '*':case '/':case '%':
         priority = 2;
-    case 2:
+    case '-':case '+':
         priority = 1;
-    case 3:case 4:
+    case '(':case ')':
         priority = 0;
+    default:
+        priority = 4;
     }
 }
 
 void OpChar::getType() {
     switch (value[0]) {
-    case '*':case '/':case '%':
+    case '*':case '/':case '%':case '-':case '+':
         type = 1;
-    case '-':case '+':
-        type = 2;
     case '(':
-        type = 3;
+        type = 2;
     case ')':
-        type = 4;
+        type = 3;
     default:
-        type = 5;
+        type = 4;
 
     }
 }
