@@ -2,7 +2,7 @@
 #define QUEUE_H
 #include <iostream>
 #include "SlNode.h"
-#include "sliterator.h"
+#include "SlIterator.h"
 
 template<typename T>
 

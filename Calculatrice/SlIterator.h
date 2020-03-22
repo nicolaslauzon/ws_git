@@ -1,7 +1,8 @@
 
 #ifndef SLITERATOR_H
 #define SLITERATOR_H
-#include "slnode.h"
+#include "SlNode.h"
+
 template <typename T>
 class SlIterator {
 private:

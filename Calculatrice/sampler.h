@@ -6,14 +6,14 @@
 class Sampler
 {
 public:
-    Sampler(std::string input);
+    Sampler(const std::string& input);
     std::string sample();
 private:
-    std::size_t size;
     std::string equationToSample;
     void removeSpaces();
     void removeExtraChar();
     void removeEqual();
+    void addMultiplication();
 };
 
 #endif

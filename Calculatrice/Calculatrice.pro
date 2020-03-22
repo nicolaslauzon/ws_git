@@ -7,7 +7,12 @@ SOURCES += \
         inputoutput.cpp \
         main.cpp \
         opchar.cpp \
+        pushstrtoopchar.cpp \
         sampler.cpp \
+        token.cpp \
+        tokeniser.cpp \
+        tokensimplifier.cpp \
+        tokenvalidity.cpp \
         validequation.cpp
 
 HEADERS += \
@@ -19,5 +24,10 @@ HEADERS += \
     Stack.h \
     inputoutput.h \
     opchar.h \
+    pushstrtoopchar.h \
     sampler.h \
+    token.h \
+    tokeniser.h \
+    tokensimplifier.h \
+    tokenvalidity.h \
     validequation.h

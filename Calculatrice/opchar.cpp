@@ -2,43 +2,59 @@
 #include <string>
 
 
-OpChar::OpChar(std::string value) {
-    this-> value = value;
-    getType();
-    getpriority();
+OpChar::OpChar()
+{
+priority=4;
+type=kIntCharType;
+stringEquivalent='0';
+value = 0;
 }
 
-int OpChar::getpriority() {
-    switch (value[0]) {
-    case '*':case '/':case '%':
+OpChar::OpChar(const std::string& value) {
+    stringEquivalent = value;
+    FillPriorityAndType();
+    getValue();
+}
+
+void OpChar::FillPriorityAndType()
+{
+    switch (stringEquivalent.at(0)) {
+    case '*':
+        type = kMultiplyCharType;
         priority = 2;
-    case '-':case '+':
+        break;
+    case '/':
+        type = kDivideCharType;
+        priority = 2;
+        break;
+    case '%':
+        type = kModuloCharType;
+        priority = 2;
+        break;
+    case '-':
+        type = kMinusCharType;
         priority = 1;
-    case '(':case ')':
-        priority = 0;
-    default:
-        priority = 4;
-    }
-}
-
-void OpChar::getType() {
-    switch (value[0]) {
-    case '*':case '/':case '%':case '-':case '+':
-        type = 1;
+        break;
+    case '+':
+        type = kAddCharType;
+        priority = 1;
+        break;
     case '(':
-        type = 2;
+        type = kOpenBraceCharType;
+        priority = 0;
+        break;
     case ')':
-        type = 3;
+        type = kCloseBraceCharType;
+        priority = 0;
+        break;
     default:
-        type = 4;
+        type = kIntCharType;
+        priority = 4;
+        break;
 
     }
 }
 
-inline int OpChar::returnType() {
-    return type;
-}
-
-inline int OpChar::returnPriority() {
-    return priority;
+void OpChar::getValue() {
+    (type == 4) ? value = stoi(stringEquivalent) : value = 0;
 }

@@ -13,7 +13,7 @@ std::string InputOutput::input() {
     return equation;
 }
 
-void InputOutput::output(std::string infix, std::string postfix, size_t result) {
+void InputOutput::output(const std::string& infix, const std::string& postfix, const size_t& result) {
     std::cout <<     "Infix      : " << infix << std::endl <<
                      "Postfix    : " << postfix << std::endl <<
                      "Evaluation : " << result << std::endl;

@@ -8,7 +8,7 @@ class InputOutput {
     public:
         InputOutput();
         std::string input();
-        void output(std::string infix, std::string postfix, size_t result);
+        void output(const std::string& infix, const std::string& postfix, const size_t& result);
 
 };
 

@@ -7,17 +7,16 @@
 class ValidEquation
 {
 public:
-    ValidEquation(std::string equation);
+    ValidEquation(const std::string& equation);
     void printError(int errorType);
     int testBraces();
     int testOperators();
     int expectedChar();
     int testAll();
+    std::string returnEquation();
 private:
     std::string equation;
-    int size;
     char tmp = 0;
     char tmp1 = 0;
 };
-
 #endif

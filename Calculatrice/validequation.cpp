@@ -1,9 +1,8 @@
 #include "validequation.h"
 
-ValidEquation::ValidEquation(std::string equation)
+ValidEquation::ValidEquation(const std::string& equation)
 {
     this -> equation = equation;
-    size = equation.size();
 }
 
 void ValidEquation::printError(int errorType)
@@ -21,7 +20,9 @@ void ValidEquation::printError(int errorType)
     case 3:
         std::cout << "The equation you  entered is invalid: " << equation << std::endl << "Unexpected: '"  << tmp << "' or '" << tmp1 << "'" << std::endl;
     break;
-
+    case 4:
+        std::cout << "The equation you  entered is invalid: " << equation << std::endl << "Division by 0"  << std::endl;
+    break;
 
 
 
@@ -31,10 +32,10 @@ void ValidEquation::printError(int errorType)
 int ValidEquation::testBraces()
 {
     int diff = 0;
-    for (int i = 0; i < size; i++) {
-        if (equation[i] == '(')
+    for (std::size_t i = 0; i < equation.size(); i++) {
+        if (equation.at(i) == '(')
             diff++;
-        if (equation[i] == ')')
+        if (equation.at(i) == ')')
             diff--;
     }
     if (!diff)
@@ -50,11 +51,11 @@ int ValidEquation::testBraces()
 
 int ValidEquation::testOperators()
 {
-    for (int i = 0; i < size; i++) {
-        if (equation[i] == '*' || equation[i] == '/' || equation[i] == '%') {
-            if (equation[i+1] == '*' || equation[i+1] == '/' || equation[i+1] == '%') {
-                tmp = equation[i];
-                tmp1 = equation[i+1];
+    for (std::size_t i = 0; i < equation.size(); i++) {
+        if (equation.at(i) == '*' || equation.at(i) == '/' || equation.at(i) == '%') {
+            if (equation.at(i + 1) == '*' || equation.at(i + 1) == '/' || equation.at(i + 1) == '%') {
+                tmp = equation.at(i);
+                tmp1 = equation.at(i + 1);
                 return 3;
             }
         }
@@ -64,13 +65,13 @@ int ValidEquation::testOperators()
 
 int ValidEquation::expectedChar()
 {
-    for (int i = 0; i < size; i++) {
-        if (!((equation[i] >= '0' && equation[i] <= '9') ||
-             equation[i] == '%' ||
-             equation[i] == '-' ||
-             equation[i] == '/' ||
-            (equation[i] >= '(' && equation[i] <= '+'))) {
-            tmp = equation[i];
+    for (std::size_t i = 0; i < equation.size(); i++) {
+        if (!((equation.at(i) >= '0' && equation.at(i) <= '9') ||
+             equation.at(i) == '%' ||
+             equation.at(i) == '-' ||
+             equation.at(i) == '/' ||
+            (equation.at(i) >= '(' && equation.at(i) <= '+'))) {
+            tmp = equation.at(i);
             return 1;
         }
     }
@@ -89,4 +90,9 @@ int ValidEquation::testAll()
     if (tmp2)
         return tmp2;
     return 0;
+}
+
+std::string ValidEquation::returnEquation()
+{
+    return equation;
 }

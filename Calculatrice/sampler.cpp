@@ -1,15 +1,15 @@
 #include "sampler.h"
 
-Sampler::Sampler(std::string input)
+Sampler::Sampler(const std::string& input)
 {
     equationToSample = input;
-    size = equationToSample.size();
 }
 
 std::string Sampler::sample()
 {
     removeSpaces();
     removeExtraChar();
+    addMultiplication();
     removeEqual();
     return equationToSample;
 }
@@ -18,9 +18,9 @@ void Sampler::removeSpaces()
 {
     std::string output;
     std::size_t j = 0;
-    for (std::size_t i = 0; i < size; i++) {
-        if (equationToSample[i] != ' ') {
-            output = output + equationToSample[i];
+    for (std::size_t i = 0; i < equationToSample.size(); i++) {
+        if (equationToSample.at(i) != ' ') {
+            output = output + equationToSample.at(i);
             j++;
         }
     }
@@ -30,13 +30,12 @@ void Sampler::removeSpaces()
 void Sampler::removeExtraChar()
 {
     int MinusNum;
-    size = equationToSample.size();
     std::string output;
-    for (std::size_t i = 0; i < size; i++) {
+    for (std::size_t i = 0; i < equationToSample.size(); i++) {
         MinusNum = 0;
-        if (equationToSample[i] == '-' || equationToSample[i] == '+') {
-            while(equationToSample[i] == '-' || equationToSample[i] == '+') {
-                if (equationToSample[i] == '-')
+        if (equationToSample.at(i) == '-' || equationToSample.at(i) == '+') {
+            while(equationToSample.at(i) == '-' || equationToSample.at(i) == '+') {
+                if (equationToSample.at(i) == '-')
                     MinusNum++;
                 i++;
 
@@ -48,7 +47,7 @@ void Sampler::removeExtraChar()
             i--;
         }
         else {
-        output = output + equationToSample[i];
+        output = output + equationToSample.at(i);
         }
 
     }
@@ -57,8 +56,24 @@ void Sampler::removeExtraChar()
 
 void Sampler::removeEqual()
 {
-    int lastChar = size-1;
-    if (equationToSample[lastChar]== '=')
+    int lastChar = equationToSample.size()-1;
+    if (equationToSample.at(lastChar)== '=')
         equationToSample.erase(lastChar,lastChar);
+}
+
+void Sampler::addMultiplication()
+{
+    for (std::size_t i = 0; i < equationToSample.size()-1; i++) {
+        if (equationToSample.at(i) >= '0' && equationToSample.at(i) <= '9') {
+            if (equationToSample.at(i + 1) == '(') {
+                equationToSample.insert( ++i, "*");
+            }
+        }
+        if (equationToSample.at(i) == ')') {
+            if (equationToSample.at(i + 1) >= '0' && equationToSample.at(i + 1) <= '9') {
+                equationToSample.insert( ++i, "*");
+            }
+        }
+    }
 }
 
