@@ -8,59 +8,63 @@ template<typename T>
 
 class Queue{
 private:
-    SlNode<T> *last;
-    size_t count;
+    SlNode<T> *last_;
+    size_t count_;
 public:
     Queue(){
-        last = nullptr;
-        count = 0;
+        last_ = nullptr;
+        count_ = 0;
+    }
+    Queue (const Queue<T>& queue) {
+        last_ = queue.last_;
+        count_ = queue.count_;
     }
     ~Queue(){
-        while(last){
+        while(last_){
             pop();
         }
     }
     void push(T data){
-        if(last){
-            last->next = new SlNode<T>(data,last->next);
-            last=last->next;
+        if(last_){
+            last_->next = new SlNode<T>(data,last_->next);
+            last_=last_->next;
         }else {
-            last = new SlNode<T>(data);
-            last->next = last;
+            last_ = new SlNode<T>(data);
+            last_->next = last_;
         }
-        count++;
+        count_++;
     }
 
     void pop(){
-        if (last){
-            if(last->next == last){
-                delete last;
-                last = nullptr;
+        if (last_){
+            if(last_->next == last_){
+                delete last_;
+                last_ = nullptr;
             }
             else {
-                SlNode<T> *todelete = last -> next;
-                last -> next = todelete -> next;
+                SlNode<T> *todelete = last_ -> next;
+                last_ -> next = todelete -> next;
                 delete todelete;
             }
-            count--;
+            count_--;
         }
     }
 
 
     inline T front(){
-        return (last) ? last->next->data : T();
+        return (last_) ? last_->next->data : T();
     }
 
     inline T back(){
-        return (last) ? last->data : T();
+        return (last_) ? last_->data : T();
     }
 
     inline size_t size(){
-        return count;
+        return count_;
     }
     SlIterator<T>* begin(){
-        if (last)
-            return new SlIterator<T>(last->next);
+        if (last_)
+            return new SlIterator<T>(last_->next);
         return nullptr;
     }
 };

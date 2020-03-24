@@ -14,13 +14,16 @@ public:
     bool IsValid() const { return is_valid_;}
     const std::string& ErrorMessage() const { return error_message_;}
     const std::list<Token>& Result() const { return token_list_;}
-
-private:
     void FillList();
+private:
+
+    bool isValid(std::size_t i);
+    void isBraceOrOperator(std::size_t i);
+    std::size_t isNegativeInteger(std::size_t i);
+    std::size_t isPositiveInteger(std::size_t i);
+
     std::string equation_;
     std::list<Token> token_list_;
-    bool isValid(std::size_t i);
-
     bool is_valid_;
     std::string error_message_;
 };

@@ -21,13 +21,17 @@ class Token
 {
 public:
     Token();
-    Token(const std::string& string);
+    Token(const Token& token);
+
+    static Token BuildFromString(const std::string& string,bool *is_ok=nullptr);
 
     TokenType Type() const { return token_type_;}
     const std::string& ValueString() const { return value_string_;}
+    int Priority() { return priority_;}
 private:
     TokenType token_type_;
     std::string value_string_;
+    int priority_;
 };
 
 #endif // TOKEN_H

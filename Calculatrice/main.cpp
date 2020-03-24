@@ -1,22 +1,14 @@
-#include "sampler.h"
 #include "inputoutput.h"
-#include "validequation.h"
-#include "pushstrtoopchar.h"
 #include "tokeniser.h"
 #include "tokensimplifier.h"
 #include "tokenvalidity.h"
+#include "solver.h"
+
 #include <iostream>
 #include <string>
+#include <list>
 int main ()
 {
- /*   InputOutput inputOutput;
-    Sampler sampler(inputOutput.input());
-    std::string sampledInput = sampler.sample();
-    ValidEquation validEquation(sampledInput);
-    validEquation.printError(validEquation.testAll());
-    PushStrToOpChar pushStringInQueue(validEquation.returnEquation());
-    pushStringInQueue.pushString();*/
-
     // get equation string
     InputOutput inputOutput;
     std::string equation_string = inputOutput.input();
@@ -27,6 +19,7 @@ int main ()
 
     // get a list of token from the equation
     Tokenizer decode_string(equation_string);
+    decode_string.FillList();
     if (decode_string.IsValid() == false) {
         std::cerr << decode_string.ErrorMessage() << std::endl;
         return EXIT_FAILURE;
@@ -35,9 +28,9 @@ int main ()
 
     // Simplify
     TokenSimplifier simplify(decoded_list);
-    decoded_list = simplify.simplify();
 
     // Test validity
+
     TokenValidity validate_equation(decoded_list);
     if (validate_equation.isValid() == false) {
         std::cerr << validate_equation.ErrorMessage() << std::endl;
@@ -45,8 +38,13 @@ int main ()
     }
 
     // Solve the equation with the list as an imput
-
+    Solver solver(decoded_list);
+    if (solver.IsValid() == false) {
+        std::cerr << solver.ErrorMessage() << std::endl;
+        return EXIT_FAILURE;
+    }
+    int answer = solver.Answer();
 
     // Output
-
+    inputOutput.output(equation_string, solver.PostFix(), answer);
 }

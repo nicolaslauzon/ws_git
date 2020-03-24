@@ -8,34 +8,38 @@ template <typename T>
 
 class Stack {
     private:
-        SlNode<T>*  sp;
-        size_t count;
+        SlNode<T>*  sp_;
+        size_t count_;
     public:
         Stack(){
-            sp = nullptr;
-            count = 0;
+            sp_ = nullptr;
+            count_ = 0;
+        }
+        Stack(const Stack<T>& stack){
+            sp_ = stack.sp_;
+            count_ = stack.count_;
         }
         ~Stack(){
-            while(sp)
+            while(sp_)
             pop();
         }
         void push(const T& data) {
-            sp = new SlNode<T>(data, sp);
-            count++;
+            sp_ = new SlNode<T>(data, sp_);
+            count_++;
         }
         void pop(){
-            if (sp){
-                SlNode<T>* toDelete = sp;
-                sp = sp -> next;
+            if (sp_){
+                SlNode<T>* toDelete = sp_;
+                sp_ = sp_ -> next;
                 delete toDelete;
-                count--;
+                count_--;
             }
         }
         inline const T& top() const {
-            return sp ? sp->data : T();
+            return sp_ ? sp_->data : T();
         }
         inline size_t size(){
-            return count;
+            return count_;
         }
 };
 #endif

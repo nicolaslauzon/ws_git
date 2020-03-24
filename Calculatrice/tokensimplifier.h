@@ -10,7 +10,7 @@
 class TokenSimplifier
 {
 public:
-    TokenSimplifier(const std::list<Token>& token_list);
+    TokenSimplifier(std::list<Token>& token_list);
 
     std::list<Token> TokenList() const {return token_list_;};
 
@@ -18,7 +18,7 @@ private:
     void Simplify();
     std::list<Token> token_list_;
     std::list<Token> RemoveRepetition(const std::list<Token>& token_list);
-    std::list<Token> AddMultiplication();
+    void AddMultiplication();
 };
 
 #endif // TOKENSIMPLIFIER_H

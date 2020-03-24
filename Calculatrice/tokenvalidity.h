@@ -18,6 +18,7 @@ private:
 
     bool is_valid_;
     std::string error_message_;
+    std::list<Token> token_list_;
 };
 
 #endif // TOKENVALIDITY_H
