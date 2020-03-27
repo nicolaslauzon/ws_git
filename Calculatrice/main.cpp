@@ -31,14 +31,14 @@ int main ()
 
     // Test validity
 
-    TokenValidity validate_equation(decoded_list);
+    TokenValidity validate_equation(simplify.TokenList());
     if (validate_equation.isValid() == false) {
         std::cerr << validate_equation.ErrorMessage() << std::endl;
         return EXIT_FAILURE;
     }
 
     // Solve the equation with the list as an imput
-    Solver solver(decoded_list);
+    Solver solver(simplify.TokenList());
     if (solver.IsValid() == false) {
         std::cerr << solver.ErrorMessage() << std::endl;
         return EXIT_FAILURE;

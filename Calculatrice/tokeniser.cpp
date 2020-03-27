@@ -16,25 +16,29 @@ void Tokenizer::FillList()
             is_valid_ = false;
         }
     }
-    for (std::size_t i = 0; i < equation_.size();){
-        if (equation_.at(i) == '(' || equation_.at(i) == ')' || equation_.at(i) == '*' || equation_.at(i) == '/' || equation_.at(i) == '%' || equation_.at(i) == '+') {
-            isBraceOrOperator(i);
-            i++;
-        }
-        if (i < equation_.size()) {
-            if (equation_.at(i) == '-') {
-                if (equation_.at(i-1) == '*' || equation_.at(i-1) == '/' || equation_.at(i-1) == '%') {
-                    i = isNegativeInteger(i);
-                }
-                else {
-                    isBraceOrOperator(i);
-                    i++;
+    if(is_valid_) {
+        for (std::size_t i = 0; i < equation_.size();){
+            if(equation_.at(i)==' ')
+                i++;
+            if (equation_.at(i) == '(' || equation_.at(i) == ')' || equation_.at(i) == '*' || equation_.at(i) == '/' || equation_.at(i) == '%' || equation_.at(i) == '+') {
+                isBraceOrOperator(i);
+                i++;
+            }
+            if (i < equation_.size()) {
+                if (equation_.at(i) == '-') {
+                    if (equation_.at(i-1) == '*' || equation_.at(i-1) == '/' || equation_.at(i-1) == '%') {
+                        i = isNegativeInteger(i);
+                    }
+                    else {
+                        isBraceOrOperator(i);
+                        i++;
+                    }
                 }
             }
-        }
-        if (i < equation_.size()) {
-            if(equation_.at(i) >= '0' && equation_.at(i) <= '9') {
-                i = isPositiveInteger(i);
+            if (i < equation_.size()) {
+                if(equation_.at(i) >= '0' && equation_.at(i) <= '9') {
+                    i = isPositiveInteger(i);
+                }
             }
         }
     }
@@ -45,6 +49,7 @@ bool Tokenizer::isValid(std::size_t i)
     if ((equation_.at(i) >= '0'
         && equation_.at(i) <= '9')||
            equation_.at(i) == '%' ||
+           equation_.at(i) == ' ' ||
            equation_.at(i) == '-' ||
            equation_.at(i) == '/' ||
           (equation_.at(i) >= '(' &&
@@ -65,8 +70,8 @@ void Tokenizer::isBraceOrOperator(std::size_t i)
 
 std::size_t Tokenizer::isNegativeInteger(std::size_t i)
 {
-    std::string str('-',1);
-    while (equation_.at(++i) >= '0' && equation_.at(i) <= '9') {
+    std::string str(1,'-');
+    while ((++i < equation_.size()) && equation_.at(i) >= '0' && equation_.at(i) <= '9') {
         str += equation_.at(i);
     }
     Token negativeInteger;
@@ -78,7 +83,7 @@ std::size_t Tokenizer::isNegativeInteger(std::size_t i)
 std::size_t Tokenizer::isPositiveInteger(std::size_t i)
 {
     std::string str(1, equation_.at(i));
-        while (equation_.at(i++) <= '0' && equation_.at(i) >= '9') {
+        while ((++i < equation_.size()) && (equation_.at(i) <= '0' && equation_.at(i) >= '9')) {
             str += equation_.at(i);
         }
     Token positiveInteger;

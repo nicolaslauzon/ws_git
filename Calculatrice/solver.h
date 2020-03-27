@@ -6,8 +6,9 @@
 #include "Stack.h"
 
 #include <list>
+#include <cstdio>
 
-
+int PriorityFromTokenType(TokenType token_type);
 
 class Solver
 {

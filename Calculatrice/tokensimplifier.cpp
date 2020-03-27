@@ -1,10 +1,9 @@
 #include "tokensimplifier.h"
 
-TokenSimplifier::TokenSimplifier(std::list<Token>& token_list)
+TokenSimplifier::TokenSimplifier(const std::list<Token>& token_list)
 {
     token_list_ = token_list;
     Simplify();
-    token_list = token_list_;
 }
 
 void TokenSimplifier::Simplify()

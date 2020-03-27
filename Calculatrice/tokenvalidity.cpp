@@ -22,9 +22,10 @@ bool TokenValidity::testBrace()
         return true;
     if (diff < 0)
         error_message_ = "The equation you entered is invalid. Unexpected ')'.";
-    else
+    else {
         error_message_ = "The equation you entered is invalid. Unexpected '('.";
-        return false;
+    }
+    return false;
 
 }
 
@@ -35,7 +36,7 @@ bool TokenValidity::testOperator()
     for (; j != token_list_.end(); ++i , ++j) {
         if (i->Type() == kMultiplyTokenType || i->Type() == kDivideTokenType || i->Type() == kModuloTokenType) {
             if (j->Type() == kMultiplyTokenType || j->Type() == kDivideTokenType || j->Type() == kModuloTokenType) {
-                error_message_ = "The equation you  entered is invalid. Unexpected: '" + i->ValueString() + "' or '" + j->ValueString();
+                error_message_ = "The equation you  entered is invalid. Unexpected: '" + i->ValueString() + "' or '" + j->ValueString() + "'";
                 return false;
             }
         }

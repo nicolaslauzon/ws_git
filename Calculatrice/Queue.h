@@ -15,9 +15,17 @@ public:
         last_ = nullptr;
         count_ = 0;
     }
-    Queue (const Queue<T>& queue) {
-        last_ = queue.last_;
-        count_ = queue.count_;
+    Queue & operator=( Queue& queue) {
+        SlIterator<T>* iterator;
+        iterator = queue.Queue::begin();
+        push(iterator->Data());
+        iterator->Iterate();
+        while(iterator->End()){
+            push(iterator->Data());
+            iterator->Iterate();
+        }
+        delete iterator;
+        return *this;
     }
     ~Queue(){
         while(last_){
@@ -52,11 +60,11 @@ public:
 
 
     inline T front(){
-        return (last_) ? last_->next->data : T();
+        return last_->next->data;
     }
 
     inline T back(){
-        return (last_) ? last_->data : T();
+        return last_->data;
     }
 
     inline size_t size(){

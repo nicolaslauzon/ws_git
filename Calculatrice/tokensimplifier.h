@@ -10,9 +10,9 @@
 class TokenSimplifier
 {
 public:
-    TokenSimplifier(std::list<Token>& token_list);
+    TokenSimplifier(const std::list<Token>& token_list);
 
-    std::list<Token> TokenList() const {return token_list_;};
+    const std::list<Token>& TokenList() const {return token_list_;};
 
 private:
     void Simplify();

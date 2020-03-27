@@ -15,10 +15,6 @@ class Stack {
             sp_ = nullptr;
             count_ = 0;
         }
-        Stack(const Stack<T>& stack){
-            sp_ = stack.sp_;
-            count_ = stack.count_;
-        }
         ~Stack(){
             while(sp_)
             pop();
@@ -36,7 +32,7 @@ class Stack {
             }
         }
         inline const T& top() const {
-            return sp_ ? sp_->data : T();
+            return sp_->data;
         }
         inline size_t size(){
             return count_;

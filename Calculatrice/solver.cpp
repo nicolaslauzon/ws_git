@@ -26,7 +26,7 @@ void Solver::InfixOpenBrace()
 
 void Solver::InfixCloseBrace()
 {
-    while (pile_operateur_.top().Type() != kOpenBraceTokenType) {
+    while (pile_operateur_.size() && (pile_operateur_.top().Type() != kOpenBraceTokenType)) {
         file_postfix_.push(pile_operateur_.top());
         pile_operateur_.pop();
     }
@@ -36,12 +36,14 @@ void Solver::InfixCloseBrace()
 
 void Solver::InfixOperator()
 {
-    while (file_postfix_.front().Priority() >= file_infix_.front().Priority()) {
-        file_postfix_.push(file_infix_.front());
-        file_postfix_.pop();
+    while (file_infix_.size() && pile_operateur_.size() &&  (PriorityFromTokenType(pile_operateur_.top().Type()) >= PriorityFromTokenType(file_infix_.front().Type()))) {
+        file_postfix_.push(pile_operateur_.top());
+        pile_operateur_.pop();
     }
-    pile_operateur_.push(file_infix_.front());
-    file_infix_.pop();
+    if (file_infix_.size()) {
+        pile_operateur_.push(file_infix_.front());
+        file_infix_.pop();
+    }
 }
 
 void Solver::InfixInteger()
@@ -80,28 +82,36 @@ void Solver::InfixGetPostFix()
 
 void Solver::InfixGetString(Queue<Token>& queue)
 {
-    std::string temp = queue.front().ValueString();
-    while (queue.size()) {
-        queue.pop();
-        temp= temp + queue.front().ValueString();
+    SlIterator<Token> *iterator;
+    iterator = queue.begin();
+    std::string temp;
+    temp+= iterator->Data().ValueString();
+    iterator->Iterate();
+    while (iterator->End()) {
+        temp+= iterator->Data().ValueString();
+        iterator->Iterate();
     }
     post_fix_ = temp;
+    delete iterator;
 }
 
 void Solver::PostfixStackOperandes()
 {
-    pile_operateur_.push(file_postfix_.front());
-    file_postfix_.pop();
+    if (file_postfix_.size()) {
+        pile_operateur_.push(file_postfix_.front());
+        file_postfix_.pop();
+    }
 }
 
 void Solver::PostFixDoOperation()
 {
+    std::string tmp;
     int operande1, operande2;
     TokenType operateur = file_postfix_.front().Type();
     file_postfix_.pop();
-    operande1 = stoi(pile_operateur_.top().ValueString());
+    operande1 = atoi(pile_operateur_.top().ValueString().c_str());
     pile_operateur_.pop();
-    operande2 = stoi(pile_operateur_.top().ValueString());
+    operande2 = atoi(pile_operateur_.top().ValueString().c_str());
     pile_operateur_.pop();
     if (operateur == kPlusTokenType){
         operande1 = operande2 + operande1;
@@ -110,7 +120,7 @@ void Solver::PostFixDoOperation()
         operande1 = operande2 - operande1;
     }
     else if (operateur == kDivideTokenType){
-        if (operande2) {
+        if (!operande1) {
             error_message_ = "The equation you  entered is invalid. Division by 0.";
             is_valid_ = false;
         }
@@ -123,19 +133,28 @@ void Solver::PostFixDoOperation()
         operande1 = operande2 * operande1;
     }
     else if (operateur == kModuloTokenType){
+        if (!operande1) {
+            error_message_ = "The equation you  entered is invalid. Modulo by 0.";
+            is_valid_ = false;
+        }
+        else {
         operande1 = operande2 % operande1;
+        is_valid_ = true;
+        }
     }
     pile_operateur_.push(Token::BuildFromString(std::to_string(operande1)));
+    answer = operande1;
 }
 
 void Solver::SolutionFinder()
 {
+    PushListInQueue();
     InfixGetPostFix();
     InfixGetString(file_postfix_);
     for(int i =0; i<2;i++){
-        PostFixDoOperation();
+        PostfixStackOperandes();
     }
-    while (pile_operateur_.size() != 1) {
+    while (pile_operateur_.size() != 1 || file_postfix_.size()) {
         if (file_postfix_.front().Type() == kPlusTokenType || file_postfix_.front().Type() == kMinusTokenType || file_postfix_.front().Type() == kModuloTokenType || file_postfix_.front().Type() == kDivideTokenType || file_postfix_.front().Type() == kMultiplyTokenType){
             PostFixDoOperation();
         }
@@ -143,5 +162,25 @@ void Solver::SolutionFinder()
             PostfixStackOperandes();
         }
     }
-    answer = stoi(pile_operateur_.top().ValueString());
+    //answer = stoi(pile_operateur_.top().ValueString());
+}
+
+int PriorityFromTokenType(TokenType token_type)
+{
+    switch (token_type){
+     case kMultiplyTokenType:
+    case kDivideTokenType:
+    case kModuloTokenType:
+        return 3;
+    case kMinusTokenType:
+    case kPlusTokenType:
+        return 2;
+    case kOpenBraceTokenType:
+    case kCloseBraceTokenType:
+        return 1;
+    case kIntTokenType:
+    case kUnknownTokenType:
+        break;
+    }
+    return -1;
 }
