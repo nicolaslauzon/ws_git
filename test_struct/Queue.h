@@ -2,7 +2,7 @@
 #define QUEUE_H
 #include <iostream>
 #include "SlNode.h"
-#include "sliterator.h"
+#include "SlIterator.h"
 
 template<typename T>
 
@@ -24,7 +24,8 @@ public:
         if(last){
             last->next = new SlNode<T>(data,last->next);
             last=last->next;
-        }else {
+        }
+        else {
             last = new SlNode<T>(data);
             last->next = last;
         }

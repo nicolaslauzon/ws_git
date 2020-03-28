@@ -3,17 +3,18 @@
 
 #include <string>
 #include <iostream>
-#include "ArrayQueue.h"
-#include "ArrayStack.h"
+#include "Queue.h"
+#include "Stack.h"
+#include "token.h"
 class InfixToPostfix {
     public:
-    ArrayQueue<std::string> file_infix_;
-    ArrayQueue<std::string> file_postfix_;
-    ArrayStack<std::string> pile_operateur_;
+    Queue<Token> file_infix_;
+    Queue<Token> file_postfix_;
+    Stack<Token> pile_operateur_;
     InfixToPostfix();
     void pushString();
     void usageOption();
-    std::string getStr(ArrayQueue<std::string> arrayQueue);
+    std::string getStr(Queue<Token> arrayQueue);
 private:
 
     void openParentese();

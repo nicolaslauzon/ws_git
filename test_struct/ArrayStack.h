@@ -14,7 +14,7 @@ public:
     ArrayStack(size_t length){ // At first the size is not set.
         ss_ = new T[length];
         sp_=0;
-        length_= length;
+        length_=size();
     }
     ~ArrayStack(){
             delete[] ss_;
@@ -33,6 +33,8 @@ public:
     const T& top() const { // If the stack is empty the return value is undefined. If not it return the top value.
         if(sp_)
             return ss_[sp_-1];
+        else
+            return T();
     }
     inline int size(){ // Return the actual size of the stack.
         return sp_;
