@@ -1,5 +1,6 @@
 #include <random>
 #include <algorithm>
+
 #include "Position.h"
 
 Position::Position() {
