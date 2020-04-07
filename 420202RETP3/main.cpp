@@ -17,7 +17,7 @@ void onWalk() {
 
     // retourne le stack contenant le chemin à emprunter
     current_solution_ = solver.Solution();
-    if (MAZE[current_solution_.top().X()][current_solution_.top().Y()] != Window::ENTRY)
+    if (MAZE[current_solution_.top().X()][current_solution_.top().Y()] != Window::EXIT)
         solver.Solve();
 }
 

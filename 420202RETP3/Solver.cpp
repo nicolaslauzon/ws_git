@@ -4,7 +4,7 @@ Solver::Solver(const Window::Square maze[53][53]) {
     for (int x = 0; x < 53; ++x) {
         for (int y = 0; y < 53; ++y) {
             maze_[x][y] =  maze[x][y];
-            if (maze[x][y] == Window::EXIT) {
+            if (maze[x][y] == Window::ENTRY) {
                 x_ = x;
                 y_ = y;
             }
