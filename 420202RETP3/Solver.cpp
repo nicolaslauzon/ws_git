@@ -11,7 +11,6 @@ Solver::Solver(const Window::Square maze[53][53]) {
         }
     }
     direction_.push(Position(x_, y_, maze_));
-    Solve();
 }
 
 void Solver::PossibleWay() {
@@ -54,6 +53,4 @@ void Solver::Solve() {
     else {
         DeadEnd();
     }
-    if (maze_[x_][y_] != Window::ENTRY)
-       Solve();
 }

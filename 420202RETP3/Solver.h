@@ -17,9 +17,6 @@ class Solver {
     // Permet de déplacer les coordonnées x_ et y_ à partir d'une direction.
     void move(const Direction& direction);
 
-    // Est appelé dans le constructeur. Permet de trouver la solution.
-    void Solve();
-
     // Le maze qui doit être solutionné.
     Window::Square maze_[53][53];
 
@@ -37,5 +34,8 @@ public:
 
     // Permet d'obtenir la solution.
     const Stack<Position>& Solution() const { return direction_;}
+
+    // Est appelé dans le constructeur. Permet de trouver la solution.
+    void Solve();
 };
 #endif //SOLVER_H
