@@ -33,7 +33,7 @@ public:
     Position();
 
     // Constructeur principal permettant d'initialiser une instance de Position.
-    Position(int x, int y, const Window::Square maze[53][53], int last_x = 0, int last_y = 0);
+    Position(int x, int y, const Window::Square maze[53][53], Position last_position);
 
     // Copy constructeur.
     Position(const Position& position);
@@ -51,7 +51,8 @@ public:
     // Retourne la direction contraire à la direction passé en paramètre
     static Direction ReverseDirection(Direction direction);
 
-    // Retourne la direction qui se trouve en dessous du vecteur.
+    // Retourne la direction qui se trouve en dessous du vecteur et l'efface.
+    // 'used_direction_' est affecté à la direction retournée par cette fonction.
     Direction& GetRandomDirection();
 };
 #endif //POSITION_H

@@ -10,20 +10,23 @@ Solver::Solver(const Window::Square maze[53][53]) {
             }
         }
     }
-    direction_.push(Position(x_, y_, maze_));
+    direction_.push(Position(x_, y_, maze_, Position()));
 }
 
 void Solver::PossibleWay() {
-    int tmpx = x_;
-    int tmpy = y_;
-    move(direction_.top().GetRandomDirection());
-    Position newPosition(x_, y_, maze_, tmpx, tmpy);
-    direction_.push(newPosition);
+    if (direction_.size()) {
+        move(direction_.top().GetRandomDirection());
+        Position newPosition(x_, y_, maze_, direction_.top());
+        direction_.push(newPosition);
+    }
 }
 
 void Solver::DeadEnd() {
     direction_.pop();
-    move(Position::ReverseDirection(direction_.top().UsedDirection()));
+    if (direction_.size()) {
+        move(Position::ReverseDirection(direction_.top().UsedDirection()));
+    }
+
 }
 
 void Solver::move(const Direction& direction) {
@@ -47,10 +50,12 @@ void Solver::move(const Direction& direction) {
 
 }
 void Solver::Solve() {
-    if (direction_.top().IsNotEmpty()) {
-        PossibleWay();
-    }
-    else {
-        DeadEnd();
+    if (direction_.size()) {
+        if (direction_.top().IsNotEmpty()) {
+            PossibleWay();
+        }
+        else {
+            DeadEnd();
+        }
     }
 }

@@ -8,20 +8,20 @@ Position::Position() {
     used_direction_ = Undefined;
 }
 
-Position::Position(int x, int y, const Window::Square maze[53][53], int last_x, int last_y) {
+Position::Position(int x, int y, const Window::Square maze[53][53], Position last_position) {
     x_ = x;
     y_ = y;
     used_direction_ = Undefined;
-    if ((maze[x + 1][y] == Window::WAY || maze[x + 1][y] == Window::EXIT || maze[x + 1][y] == Window::ENTRY) && !(x + 1 == last_x && y == last_y)) {
+    if ((maze[x + 1][y] == Window::WAY || maze[x + 1][y] == Window::EXIT) && !(x + 1 == last_position.X() && y == last_position.Y())) {
         possible_direction_.push_back(East);
     }
-    if ((maze[x - 1][y] == Window::WAY || maze[x - 1][y] == Window::EXIT || maze[x - 1][y] == Window::ENTRY) && !(x - 1 == last_x && y == last_y)) {
+    if ((maze[x - 1][y] == Window::WAY || maze[x - 1][y] == Window::EXIT) && !(x - 1 == last_position.X() && y == last_position.Y())) {
         possible_direction_.push_back(West);
     }
-    if ((maze[x][y + 1] == Window::WAY || maze[x][y + 1] == Window::EXIT || maze[x][y + 1] == Window::ENTRY) && !(x == last_x && y + 1 == last_y)) {
+    if ((maze[x][y + 1] == Window::WAY || maze[x][y + 1] == Window::EXIT) && !(x == last_position.X() && y + 1 == last_position.Y())) {
         possible_direction_.push_back(South);
     }
-    if ((maze[x][y - 1] == Window::WAY || maze[x][y - 1] == Window::EXIT || maze[x][y - 1] == Window::ENTRY) && !(x == last_x && y - 1 == last_y)) {
+    if ((maze[x][y - 1] == Window::WAY || maze[x][y - 1] == Window::EXIT) && !(x == last_position.X() && y - 1 == last_position.Y())) {
         possible_direction_.push_back(North);
     }
     if (possible_direction_.size() > 1) {

@@ -32,13 +32,13 @@ public:
             count_--;
         }
     }
-    inline T& top(){
+    inline T& top() const{
         return sp_->data;
     }
-    inline size_t size(){
+    inline size_t size() const{
         return count_;
     }
-    SlIterator<T> begin(){
+    SlIterator<T> begin() const{
         return SlIterator<T>(sp_);
     }
 };

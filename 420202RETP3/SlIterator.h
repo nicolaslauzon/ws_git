@@ -21,7 +21,7 @@ public:
             node_ = node_->next;
     }
     inline bool End(){ //if at the end return "false", if not return "true"
-        return  node_->next != nullptr;
+        return  node_ ;
     }
     T& Data() const {
         return node_->data;
