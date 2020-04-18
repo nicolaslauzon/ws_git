@@ -23,10 +23,6 @@ class Position {
     // Vecteur contenant les directions pouvant être emprunté.
     std::vector<Direction> possible_direction_;
 
-    // Direction actuellement emprunté.
-    // Si on revient sur nos pas, cette valeur peut changer.
-    Direction used_direction_;
-
 public:
 
     // Constructeur de base.
@@ -39,20 +35,17 @@ public:
     Position(const Position& position);
 
     // If 'possible_direction_' est vide retourne false, sinon retourne true.
-    bool IsNotEmpty() {return possible_direction_.empty() == false;}
+    bool IsNotEmpty() {return !possible_direction_.empty();}
 
     // Retourne les coordonnées x et y actuelles.
     int X() { return x_; }
     int Y() { return y_; }
-
-    // Retourne la direction empruntée.
-    const Direction& UsedDirection() const { return used_direction_; }
 
     // Retourne la direction contraire à la direction passé en paramètre
     static Direction ReverseDirection(Direction direction);
 
     // Retourne la direction qui se trouve en dessous du vecteur et l'efface.
     // 'used_direction_' est affecté à la direction retournée par cette fonction.
-    Direction& GetRandomDirection();
+    Direction GetRandomDirection();
 };
 #endif //POSITION_H

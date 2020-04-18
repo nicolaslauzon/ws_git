@@ -18,7 +18,7 @@ void onWalk() {
     current_solution_ = solver.Solution();
     if (current_solution_.size())
         if (MAZE[current_solution_.top().X()][current_solution_.top().Y()] != Window::EXIT)
-            solver.Solve();
+            solver.Solve(MAZE);
 }
 
 // Appelée environ 60 fois par seconde lors de l'exécution du programme.

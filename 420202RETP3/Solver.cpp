@@ -3,45 +3,39 @@
 Solver::Solver(const Window::Square maze[53][53]) {
     for (int x = 0; x < 53; ++x) {
         for (int y = 0; y < 53; ++y) {
-            maze_[x][y] =  maze[x][y];
             if (maze[x][y] == Window::ENTRY) {
-                x_ = x;
-                y_ = y;
+                direction_.push(Position(x, y, maze, Position()));
             }
         }
     }
-    direction_.push(Position(x_, y_, maze_, Position()));
 }
 
-void Solver::PossibleWay() {
+void Solver::PossibleWay(const Window::Square maze[53][53]) {
     if (direction_.size()) {
-        move(direction_.top().GetRandomDirection());
-        Position newPosition(x_, y_, maze_, direction_.top());
+        int tmp_x = direction_.top().X(), tmp_y = direction_.top().Y();
+        move(direction_.top().GetRandomDirection(), tmp_x, tmp_y);
+        Position newPosition( tmp_x, tmp_y, maze, direction_.top());
         direction_.push(newPosition);
     }
 }
 
 void Solver::DeadEnd() {
     direction_.pop();
-    if (direction_.size()) {
-        move(Position::ReverseDirection(direction_.top().UsedDirection()));
-    }
-
 }
 
-void Solver::move(const Direction& direction) {
+void Solver::move(const Direction direction, int& x, int& y) {
     switch (direction) {
         case North:
-            --y_;
+            --y;
             break;
         case South:
-            ++y_;
+            ++y;
             break;
         case West:
-            --x_;
+            --x;
             break;
         case East:
-            ++x_;
+            ++x;
             break;
         case Undefined:
             std::cerr << "Undefined direction" << std::endl;
@@ -49,10 +43,10 @@ void Solver::move(const Direction& direction) {
 
 
 }
-void Solver::Solve() {
+void Solver::Solve(const Window::Square maze[53][53]) {
     if (direction_.size()) {
         if (direction_.top().IsNotEmpty()) {
-            PossibleWay();
+            PossibleWay(maze);
         }
         else {
             DeadEnd();

@@ -9,23 +9,16 @@
 class Solver {
 
     // Est appelé si il y a une direction qui peut être emprunté.
-    void PossibleWay();
+    void PossibleWay(const Window::Square maze[53][53]);
 
     // Est appelé si il n'y a pas de direction qui peut être emprunté.
     void DeadEnd();
 
     // Permet de déplacer les coordonnées x_ et y_ dans une direction à partir de celle-ci.
-    void move(const Direction& direction);
-
-    // Le maze à déchiffrer.
-    Window::Square maze_[53][53];
+    void move(const Direction direction, int& x, int& y);
 
     // Le Stack contenant les positions que l'algorithme emprunte.
     Stack<Position> direction_;
-
-    // Coordonnées de la position actuelle.
-    int x_;
-    int y_;
 
 public:
 
@@ -36,6 +29,6 @@ public:
     const Stack<Position>& Solution() const { return direction_;}
 
     // Avance d'une case.
-    void Solve();
+    void Solve(const Window::Square maze[53][53]);
 };
 #endif //SOLVER_H

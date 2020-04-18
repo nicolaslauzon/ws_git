@@ -5,13 +5,11 @@
 
 Position::Position() {
     x_ = y_ = 0;
-    used_direction_ = Undefined;
 }
 
 Position::Position(int x, int y, const Window::Square maze[53][53], Position last_position) {
     x_ = x;
     y_ = y;
-    used_direction_ = Undefined;
     if ((maze[x + 1][y] == Window::WAY || maze[x + 1][y] == Window::EXIT) && !(x + 1 == last_position.X() && y == last_position.Y())) {
         possible_direction_.push_back(East);
     }
@@ -33,16 +31,15 @@ Position::Position(int x, int y, const Window::Square maze[53][53], Position las
 }
 
 Position::Position(const Position& position) {
-    used_direction_ = position.used_direction_;
     x_ = position.x_;
     y_ = position.y_;
     possible_direction_ = position.possible_direction_;
 }
 
-Direction& Position::GetRandomDirection() {
-    used_direction_ = possible_direction_.back();
+Direction Position::GetRandomDirection() {
+    Direction used_direction = possible_direction_.back();
     possible_direction_.pop_back();
-    return used_direction_;
+    return used_direction;
 }
 
 Direction Position::ReverseDirection(Direction direction) {
