@@ -40,9 +40,8 @@ void Solver::move(const Direction direction, int& x, int& y) {
         case Undefined:
             std::cerr << "Undefined direction" << std::endl;
     }
-
-
 }
+
 void Solver::Solve(const Window::Square maze[53][53]) {
     if (direction_.size()) {
         if (direction_.top().IsNotEmpty()) {

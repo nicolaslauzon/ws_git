@@ -2,7 +2,7 @@
 #include "SlIterator.h"
 #include "Solver.h"
 
-#define MAZE mazeC
+#define MAZE mazeB
 
 Window* window;
 Solver solver(MAZE);
@@ -19,6 +19,9 @@ void onWalk() {
     if (current_solution_.size())
         if (MAZE[current_solution_.top().X()][current_solution_.top().Y()] != Window::EXIT)
             solver.Solve(MAZE);
+        else {
+            std::cerr << "Exit found!" << std::endl;
+        }
 }
 
 // Appelée environ 60 fois par seconde lors de l'exécution du programme.
