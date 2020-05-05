@@ -41,9 +41,6 @@ public:
     int X() { return x_; }
     int Y() { return y_; }
 
-    // Retourne la direction contraire à la direction passé en paramètre
-    static Direction ReverseDirection(Direction direction);
-
     // Retourne la direction qui se trouve en dessous du vecteur et l'efface.
     // 'used_direction_' est affecté à la direction retournée par cette fonction.
     Direction GetRandomDirection();

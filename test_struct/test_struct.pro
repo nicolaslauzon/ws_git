@@ -9,6 +9,9 @@ SOURCES += \
 HEADERS += \
     ArrayQueue.h \
     ArrayStack.h \
+    PQIterator.h \
+    PriorityNode.h \
+    PriorityQueue.h \
     Queue.h \
     SlIterator.h \
     SlNode.h \

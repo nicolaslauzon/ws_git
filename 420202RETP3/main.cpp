@@ -2,7 +2,7 @@
 #include "SlIterator.h"
 #include "Solver.h"
 
-#define MAZE mazeB
+#define MAZE mazeC
 
 Window* window;
 Solver solver(MAZE);

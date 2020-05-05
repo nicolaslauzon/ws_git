@@ -1,6 +1,8 @@
 #ifndef PRIORITYQUEUE_H
 #define PRIORITYQUEUE_H
 
+#include <iostream>
+
 #include "PriorityNode.h"
 #include "PQIterator.h"
 
@@ -30,20 +32,20 @@ public:
     }
 
     void push(T data, size_t priority){
-        if (qp_) {
-            if (qp_->priority > priority) {
-                qp_ = new PriorityNode<T>(data, priority, qp_);
-            }
-            else{
+        if(qp_) {
+            if (qp_->priority <= priority) {
                 PriorityNode<T>* i = qp_;
                 while (i->next && i->next->priority <= priority ) {
                     i = i->next;
                 }
                 i->next = new PriorityNode<T>(data, priority, i->next);
             }
+            else {
+                qp_ = new PriorityNode<T>(data, priority, qp_);
+            }
         }
-        else{
-            qp_ = new PriorityNode<T>(data, priority);
+        else {
+             qp_ = new PriorityNode<T>(data, priority);
         }
         ++count_;
     }
@@ -59,11 +61,11 @@ public:
 
 
     inline T front(){
-        return qp_ ?  qp_->data : T();
+        return qp_->data;
     }
 
-    inline size_t frontPriority(){
-        return qp_? qp_->priority : 0;
+    inline int frontPriority(){
+        return qp_->next->priority;
     }
 
     inline size_t size(){

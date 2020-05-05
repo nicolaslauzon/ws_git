@@ -1,16 +1,13 @@
 #include <iostream>
-#include "Stack.h"
-#include "Queue.h"
+
+#include "PriorityQueue.h"
 
 int main()
 {
-   Queue<int> *queue;
-   queue->push(42);
-   queue->push(42);
-   SlIterator<int> *iterator(queue->begin());
-   iterator->Next();
-   std::cout << iterator->getData() << std::endl;
-   delete iterator;
-   delete queue;
-   return 0;
+    PriorityQueue<int> queue;
+    queue.push(0,1);
+    queue.push(1,1);
+    queue.push(2,1);
+    queue.front();
+    queue.~PriorityQueue();
 }

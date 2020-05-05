@@ -41,19 +41,3 @@ Direction Position::GetRandomDirection() {
     possible_direction_.pop_back();
     return used_direction;
 }
-
-Direction Position::ReverseDirection(Direction direction) {
-    switch(direction) {
-        case North:
-            return South;
-        case South:
-            return North;
-        case West:
-            return East;
-        case East:
-            return West;
-        case Undefined:
-            break;
-    }
-    return Undefined;
-}

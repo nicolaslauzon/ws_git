@@ -1,9 +1,8 @@
-#include <iostream>
-
-using namespace std;
+#include "HuffmanEncoding.h"
 
 int main()
 {
-    cout << "Hello World!" << endl;
+    HuffmanEncoding huffman_encoding;
+    huffman_encoding.Encode();
     return 0;
 }

@@ -12,16 +12,11 @@ public:
       node_ = node;
    }
    void Iterate(){
-      node_ = node_->next;
+      if(node_)
+         node_ = node_->next;
    }
    const T& Data() const {
       return node_->data;
-   }
-   size_t Priority() {
-       return node_->priority;
-   }
-   bool End() {
-       return node_;
    }
 };
 #endif
