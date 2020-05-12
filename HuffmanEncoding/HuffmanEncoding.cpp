@@ -17,20 +17,26 @@ void HuffmanEncoding::BinaryToDecimal(std::list<int> &answer, std::list<unsigned
 
 bool HuffmanEncoding::HuffmanTraversal(HuffmanNode *node, std::list<unsigned char> &binary_code, char to_find)
 {
+    // If I find the char "to_find" return true
     if (node && node->character == to_find)
         return true;
+    // If I can go left I do it
     if (node->left){
         binary_code.push_back(0);
+        // If I find the char "to_find" return true
         if (HuffmanTraversal(node->left, binary_code,to_find)==true)
             return true;
         binary_code.pop_back();
     }
+    // If I can go right I do it
     if (node->right){
         binary_code.push_back(1);
+        // If I find the char "to_find" return true
         if (HuffmanTraversal(node->right, binary_code,to_find)==true)
             return true;
         binary_code.pop_back();
     }
+    // If I don't find it return false
     return false;
 }
 
@@ -38,11 +44,6 @@ HuffmanEncoding::HuffmanEncoding()
 {
     input_ = key_ = "";
     queue_ = nullptr;
-}
-
-HuffmanEncoding::~HuffmanEncoding()
-{
-    std::cout << "deleted";
 }
 
 void HuffmanEncoding::Input() {

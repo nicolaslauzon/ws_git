@@ -22,8 +22,7 @@ class HuffmanEncoding{
     // PriorityQueue
     PriorityQueue<HuffmanNode*>* queue_;
 
-    // Fill "answer" of decimal value
-    // Each equals to a 8 bit binary from "total_solution"
+    // Basic binary to decimal converter
     void BinaryToDecimal(std::list<int> &answer, std::list<unsigned char> total_solution);
 
     // Get to "to_find" in the tree from root "node".
@@ -52,9 +51,6 @@ public:
 
     // Main constructor
     HuffmanEncoding();
-
-    // Main destructor
-    ~HuffmanEncoding();
 
     // Encode
     void Encode();

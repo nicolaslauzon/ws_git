@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>pixmap/SnakeHead.png</file>
+        <file>pixmap/SnakeBody.png</file>
+        <file>pixmap/Fruit.png</file>
+        <file>pixmap/Snake.png</file>
+        <file>pixmap/Background.png</file>
+    </qresource>
+</RCC>
