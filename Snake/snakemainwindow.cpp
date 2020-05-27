@@ -15,15 +15,16 @@ SnakeMainWindow::~SnakeMainWindow()
 
 void SnakeMainWindow::StartGame()
 {
-    int difficulty = 0;
+    float difficulty = 1;
+
     if (ui->easy_btn_->isChecked()) {
-        difficulty = 0;
-    }
-    else if (ui->intermediate_btn_->isChecked()) {
         difficulty = 1;
     }
+    else if (ui->intermediate_btn_->isChecked()) {
+        difficulty = .5;
+    }
     else if (ui->hard_btn_->isChecked()) {
-        difficulty = 2;
+        difficulty = .25;
     }
 
     int w = ui->width_lbl_->text().toInt();
@@ -32,28 +33,29 @@ void SnakeMainWindow::StartGame()
     h = h - h % 32;
     GameWindow *game_window = new GameWindow(w, h, difficulty, this);
 
+    game_window->setWindowTitle("Snake game");
     game_window->setModal(true);
     game_window->show();
 }
 
 void SnakeMainWindow::setSnakeImage()
 {
-    scene_ = new QGraphicsScene();
+    scene_ = new QGraphicsScene(ui->snake_img_);
 
-    snake_head_ = new SnakeHead();
-    snake_body_ = new SnakeBody();
-    snake_body1_ = new SnakeBody();
-    snake_body2_ = new SnakeBody();
-    snake_body3_ = new SnakeBody();
-    apple_ = new Apple();
-    title_ = new SnakeTitle();
+    snake_head_ = factory::CreateHead();
+    snake_body_ = factory::CreateBody();
+    snake_body1_ = factory::CreateBody();
+    snake_body2_ = factory::CreateBody();
+    snake_body3_ = factory::CreateBody();
+    apple_ = factory::CreateApple();
+    title_ = factory::CreateTitle();
 
-    snake_head_->setPos(ui->snake_img_->width()/2+64,ui->snake_img_->height()/2+30);
-    snake_body_->setPos(ui->snake_img_->width()/2,ui->snake_img_->height()/2+30);
-    snake_body1_->setPos(ui->snake_img_->width()/2-64,ui->snake_img_->height()/2+30);
-    snake_body2_->setPos(ui->snake_img_->width()/2-64,ui->snake_img_->height()/2-34);
-    snake_body3_->setPos(ui->snake_img_->width()/2-128,ui->snake_img_->height()/2-34);
-    apple_->setPos(ui->snake_img_->width()/2+128,ui->snake_img_->height()/2+30);
+    snake_head_->setPos(ui->snake_img_->width()/2+96,ui->snake_img_->height()/2+62);
+    snake_body_->setPos(ui->snake_img_->width()/2+32,ui->snake_img_->height()/2+62);
+    snake_body1_->setPos(ui->snake_img_->width()/2-32,ui->snake_img_->height()/2+62);
+    snake_body2_->setPos(ui->snake_img_->width()/2-32,ui->snake_img_->height()/2-2);
+    snake_body3_->setPos(ui->snake_img_->width()/2-96,ui->snake_img_->height()/2-2);
+    apple_->setPos(ui->snake_img_->width()/2+160,ui->snake_img_->height()/2+62);
     title_->setPos(ui->snake_img_->width()/2-112, 0);
 
     scene_->addItem(snake_head_);
@@ -66,6 +68,5 @@ void SnakeMainWindow::setSnakeImage()
 
     scene_->setSceneRect(0,0,ui->snake_img_->width(),ui->snake_img_->height());
     ui->snake_img_->setScene(scene_);
-
 }
 

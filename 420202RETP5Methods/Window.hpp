@@ -1,6 +1,5 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
-
 #include <string>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -50,7 +49,6 @@ public:
   std::string showTextField(const std::string& name);
   void openContextMenu(const SDL_Point& position, const unsigned long& enabled = 0);
 };
-
 
 
 #endif

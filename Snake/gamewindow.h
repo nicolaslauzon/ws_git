@@ -1,9 +1,8 @@
 #ifndef GAMEWINDOW_H
 #define GAMEWINDOW_H
 
-#include "apple.h"
-#include "snakebody.h"
-#include "snakehead.h"
+#include "snakefactory.h"
+#include "snake.h"
 
 #include <QDialog>
 
@@ -16,19 +15,26 @@ class GameWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit GameWindow(int w = 800, int h = 600, int difficulty = 0, QWidget *parent = nullptr);
+    explicit GameWindow(int w = 800, int h = 600, float difficulty = 0, QWidget *parent = nullptr);
     ~GameWindow();
 
+protected:
+    void keyPressEvent(QKeyEvent *) override;
+    void closeEvent(QCloseEvent *) override;
+protected slots:
+    void timeoutEvent();
 private:
     Ui::GameWindow *ui;
 
+    float speed_;
     QGraphicsScene *scene_;
-    std::list<SnakeBody*> snake_tail_;
-    SnakeHead *snake_head_;
-    Apple *fruit_;
-
+    QGraphicsItem *fruit_;
+    Snake *snake_;
+    QTimer *timer_;
+    int last_key_press_;
     void Setup();
     void FruitPlacement();
+    void ResetFruit();
 };
 
 #endif // GAMEWINDOW_H

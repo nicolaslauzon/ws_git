@@ -5,12 +5,9 @@
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 
-#include "apple.h"
 #include "gamewindow.h"
-#include "snakebody.h"
-#include "snakehead.h"
 #include "ui_snakemainwindow.h"
-#include "snaketitle.h"
+#include "snakefactory.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class SnakeMainWindow; }
@@ -29,15 +26,15 @@ protected slots:
 private:
     QGraphicsScene *scene_;
 
-    SnakeTitle *title_;
+    QGraphicsItem *title_;
 
-    SnakeHead *snake_head_;
+    QGraphicsItem *snake_head_;
 
-    SnakeBody *snake_body_;
-    SnakeBody *snake_body1_;
-    SnakeBody *snake_body2_;
-    SnakeBody *snake_body3_;
-    Apple *apple_;
+    QGraphicsItem *snake_body_;
+    QGraphicsItem *snake_body1_;
+    QGraphicsItem *snake_body2_;
+    QGraphicsItem *snake_body3_;
+    QGraphicsItem *apple_;
 
     Ui::SnakeMainWindow *ui;
     void setSnakeImage();

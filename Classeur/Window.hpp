@@ -51,6 +51,6 @@ public:
   void openContextMenu(const SDL_Point& position, const unsigned long& enabled = 0);
 };
 
-
+Window window;
 
 #endif

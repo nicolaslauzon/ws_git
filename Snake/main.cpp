@@ -1,6 +1,5 @@
+#include <stdlib.h>
 #include "snakemainwindow.h"
-#include "snakehead.h"
-#include "snakebody.h"
 
 #include <QApplication>
 #include <QGraphicsView>

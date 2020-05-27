@@ -1,13 +1,16 @@
 #include <iostream>
 
-#include "PriorityQueue.h"
+#include "BSTree.h"
 
 int main()
 {
-    PriorityQueue<int> queue;
-    queue.push(0,1);
-    queue.push(1,1);
-    queue.push(2,1);
-    queue.front();
-    queue.~PriorityQueue();
+    BSTree<int> tree;
+    tree.add(2);
+    tree.add(5);
+    tree.add(1);
+    tree.add(6);
+    tree.add(3);
+    tree.add(0);
+    tree.remove(2);
+    return 0;
 }

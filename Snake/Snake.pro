@@ -16,21 +16,17 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    apple.cpp \
     gamewindow.cpp \
     main.cpp \
-    snakebody.cpp \
-    snakehead.cpp \
-    snakemainwindow.cpp \
-    snaketitle.cpp
+    snake.cpp \
+    snakefactory.cpp \
+    snakemainwindow.cpp
 
 HEADERS += \
-    apple.h \
     gamewindow.h \
-    snakebody.h \
-    snakehead.h \
-    snakemainwindow.h \
-    snaketitle.h
+    snake.h \
+    snakefactory.h \
+    snakemainwindow.h
 
 FORMS += \
     gamewindow.ui \
